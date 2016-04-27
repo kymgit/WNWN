@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        /*
         try {
             FileInputStream fileIn=openFileInput("masterfoodlist.txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        */
 
 
 

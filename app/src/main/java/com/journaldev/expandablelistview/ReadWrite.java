@@ -1,5 +1,6 @@
 package com.journaldev.expandablelistview;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class ReadWrite {
 
         try {
 
+
             StringBuffer output = new StringBuffer();
             String fpath = "/sdcard/"+fname+".txt";
 
@@ -73,8 +75,16 @@ public class ReadWrite {
         return response;
 
     }
+    public boolean fileExists(Context context, String filename) {
+        File file = context.getFileStreamPath(filename);
+        if(file == null || !file.exists()) {
+            return false;
+        }
+        return true;
+    }
+
     /*
-    public void WriteBtn() {
+    public void WriteList() {
         // add-write text into file
         try {
 
@@ -92,6 +102,31 @@ public class ReadWrite {
             e.printStackTrace();
         }
     }
+
+    public void ReadList(View v) {
+        //reading text from file
+        try {
+            FileInputStream fileIn=openFileInput("mytextfile.txt");
+            InputStreamReader InputRead= new InputStreamReader(fileIn);
+
+            char[] inputBuffer= new char[READ_BLOCK_SIZE];
+            String s="";
+            int charRead;
+
+            while ((charRead=InputRead.read(inputBuffer))>0) {
+                // char to string conversion
+                String readstring=String.copyValueOf(inputBuffer,0,charRead);
+                s +=readstring;
+            }
+            InputRead.close();
+            textmsg.setText(s);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
         */
 
 

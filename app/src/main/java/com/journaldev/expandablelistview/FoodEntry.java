@@ -48,4 +48,7 @@ public class FoodEntry
     public void setQuantity(int quantity) {
         Quantity = quantity;
     }
+
+
+    //public void Categorize
 }
