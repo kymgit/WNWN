@@ -8,14 +8,19 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+
+{
 
 
 
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
+    ArrayList<String> VirtualList;
     //List<FoodEntry> FoodTitle;
     HashMap<String, List<String>> expandableListDetail;
 
@@ -32,26 +38,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try
+        {
+            FileOutputStream fileout=openFileOutput("masterlist.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+            outputWriter.write("Chicken"+"\t"+"Meat"+"\t"+"20160430"+"\t"+"2");
+            outputWriter.close();
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        readSavedData();
+
+
         /*
-        try {
-            FileInputStream fileIn=openFileInput("masterfoodlist.txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-            char[] inputBuffer= new char[100];
-            String s="";
-            int charRead;
-
-            while ((charRead=InputRead.read(inputBuffer))>0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
-            }
-            InputRead.close();
-
-
+        try
+        {
+            FileOutputStream fileout=openFileOutput("masterlist.txt", MODE_PRIVATE);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         */
 
 
@@ -99,7 +108,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void  readSavedData ( ) {
+        StringBuilder datax = new StringBuilder("");
+        try {
+            FileInputStream fIn = openFileInput ("masterlist.txt" ) ;
+            InputStreamReader isr = new InputStreamReader ( fIn ) ;
+            BufferedReader buffreader = new BufferedReader ( isr ) ;
 
+            String readString = buffreader.readLine ( ) ;
+
+
+            while ( readString != null ) {
+                datax.append(readString);
+                VirtualList.add(readString);
+                readString = buffreader.readLine ( ) ;
+            }
+
+            isr.close ( ) ;
+        } catch ( IOException ioe ) {
+            ioe.printStackTrace ( ) ;
+        }
+        //return datax.toString() ;
+    }
 
 
 }
