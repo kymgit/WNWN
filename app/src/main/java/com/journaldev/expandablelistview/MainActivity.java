@@ -29,15 +29,14 @@ public class MainActivity extends AppCompatActivity
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    ArrayList<String> VirtualList;
-    //List<FoodEntry> FoodTitle;
+    ArrayList<String> VirtualList = new ArrayList<String>();;
+    ArrayList<FoodEntry> FoodList  = new ArrayList<FoodEntry>();;
     HashMap<String, List<String>> expandableListDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         try
         {
             FileOutputStream fileout=openFileOutput("masterlist.txt", MODE_PRIVATE);
@@ -49,7 +48,12 @@ public class MainActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
+
+
         readSavedData();
+
+        parseSavedData();
+
 
 
         /*
@@ -63,10 +67,10 @@ public class MainActivity extends AppCompatActivity
 
         */
 
-
+        ExpandableListDataPump thing = new ExpandableListDataPump(FoodList);
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
+        expandableListDetail = thing.getData();
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
@@ -121,6 +125,8 @@ public class MainActivity extends AppCompatActivity
             while ( readString != null ) {
                 datax.append(readString);
                 VirtualList.add(readString);
+
+
                 readString = buffreader.readLine ( ) ;
             }
 
@@ -131,5 +137,16 @@ public class MainActivity extends AppCompatActivity
         //return datax.toString() ;
     }
 
+
+    public void  parseSavedData ( ) {
+
+        for(int i=0; i<VirtualList.size();i++)
+        {
+            String[] lines = VirtualList.get(i).split("\t");
+            FoodEntry dummy = new FoodEntry(lines[0], lines[1], Integer.parseInt(lines[2]), Integer.parseInt(lines[3]));
+            FoodList.add(dummy);
+        }
+
+    }
 
 }

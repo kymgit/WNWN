@@ -5,46 +5,48 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListDataPump {
-    public static HashMap<String, List<String>> getData() {
+
+
+    private static ArrayList<FoodEntry> item ;
+
+    public ExpandableListDataPump(ArrayList<FoodEntry> item) {
+        this.item = item;
+    }
+
+    //static
+    public static  HashMap<String, List<String>> getData() {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
 
 
         List<String> Bread = new ArrayList<String>();
-        Bread.add("India");
-        Bread.add("Pakistan");
-        Bread.add("Australia");
-        Bread.add("England");
-        Bread.add("South Africa");
-
         List<String> Meat = new ArrayList<String>();
-        Meat.add("Brazil");
-        Meat.add("Spain");
-        Meat.add("Germany");
-        Meat.add("Netherlands");
-        Meat.add("Italy");
-
         List<String> Vegetable = new ArrayList<String>();
-        Vegetable.add("United States");
-        Vegetable.add("Spain");
-        Vegetable.add("Argentina");
-
-        Vegetable.add("France");
-
-        Vegetable.add("Crabew");
-        Vegetable.add("Russia");
-
         List<String> Medicine = new ArrayList<String>();
-        Medicine.add("India");
-        Medicine.add("Pakistan");
-        Medicine.add("Australia");
-        Medicine.add("England");
-        Medicine.add("South Africa");
 
-        expandableListDetail.put("Bread TEAMS", Bread);
-        expandableListDetail.put("Meat TEAMS", Meat);
-        expandableListDetail.put("Vegetable TEAMS", Vegetable);
-        expandableListDetail.put("Medicine TEAMS",Medicine);
+
+        for(int i=0; i<item.size();i++)
+        {
+
+            // sort by date nlng
+            if (item.get(i).getCategory().equals("Bread"))
+            {
+                Bread.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
+            }
+
+            else if (item.get(i).getCategory().equals("Meat"))
+            {
+                Meat.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
+            }
+        }
+
+
+
+
+        expandableListDetail.put("Bread", Bread);
+        expandableListDetail.put("Meat", Meat);
+        expandableListDetail.put("Vegetable", Vegetable);
+        expandableListDetail.put("Medicine",Medicine);
         return expandableListDetail;
     }
 }
