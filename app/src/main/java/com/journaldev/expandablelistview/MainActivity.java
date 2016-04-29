@@ -14,7 +14,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,8 +33,8 @@ public class MainActivity extends AppCompatActivity
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    ArrayList<String> VirtualList = new ArrayList<String>();;
-    ArrayList<FoodEntry> FoodList  = new ArrayList<FoodEntry>();;
+    ArrayList<String> VirtualList = new ArrayList<String>();
+    ArrayList<FoodEntry> FoodList  = new ArrayList<FoodEntry>();
     HashMap<String, List<String>> expandableListDetail;
 
     @Override
@@ -41,7 +45,8 @@ public class MainActivity extends AppCompatActivity
         {
             FileOutputStream fileout=openFileOutput("masterlist.txt", MODE_PRIVATE);
             OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-            outputWriter.write("Chicken"+"\t"+"Meat"+"\t"+"20160430"+"\t"+"2");
+            outputWriter.write("Chicken"+"\t"+"Meat"+"\t"+"20160430"+"\t"+"2"+"\t"+"\n");
+            outputWriter.write("Pork"+"\t"+"Meat"+"\t"+"20150430"+"\t"+"2");
             outputWriter.close();
 
         } catch (Exception e)
@@ -110,7 +115,12 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
+
+
+
     }
+
 
     public void  readSavedData ( ) {
         StringBuilder datax = new StringBuilder("");
@@ -143,10 +153,34 @@ public class MainActivity extends AppCompatActivity
         for(int i=0; i<VirtualList.size();i++)
         {
             String[] lines = VirtualList.get(i).split("\t");
-            FoodEntry dummy = new FoodEntry(lines[0], lines[1], Integer.parseInt(lines[2]), Integer.parseInt(lines[3]));
+            FoodEntry dummy = new FoodEntry(lines[0], lines[1], Integer.parseInt(lines[2]), Integer.parseInt(lines[2]));
             FoodList.add(dummy);
         }
 
+        for(int i=0; i<FoodList.size();i++)
+        {
+            //String[] lines = FoodList;
+            //Collections.sort(FoodList);
+            Collections.sort(FoodList, new Comparator<FoodEntry>(){
+                public int compare(FoodEntry food1, FoodEntry food2) {
+                    return food1.getExpiryDate()- food2.getExpiryDate();
+                }
+            });
+            //FoodEntry dummy = new FoodEntry(lines[0], lines[1], Integer.parseInt(lines[2]), Integer.parseInt(lines[3]));
+            //FoodList.add(dummy);
+        }
+
     }
+
+
+
+    /*
+    public abstract class CustomComparator implements Comparator<FoodEntry> {
+        @Override
+        public int compare(FoodEntry o1, FoodEntry o2) {
+            return o1.getExpiryDate().before(o2.getExpiryDate());
+        }
+    }
+    */
 
 }

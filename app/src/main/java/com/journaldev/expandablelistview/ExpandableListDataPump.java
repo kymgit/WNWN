@@ -23,12 +23,12 @@ public class ExpandableListDataPump {
         List<String> Meat = new ArrayList<String>();
         List<String> Vegetable = new ArrayList<String>();
         List<String> Medicine = new ArrayList<String>();
-
+        List<String> Expired = new ArrayList<String>();
 
         for(int i=0; i<item.size();i++)
         {
 
-            // sort by date nlng
+
             if (item.get(i).getCategory().equals("Bread"))
             {
                 Bread.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
@@ -37,6 +37,18 @@ public class ExpandableListDataPump {
             else if (item.get(i).getCategory().equals("Meat"))
             {
                 Meat.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
+            }
+            else if (item.get(i).getCategory().equals("Vegetable"))
+            {
+                Vegetable.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
+            }
+            else if (item.get(i).getCategory().equals("Medicine"))
+            {
+                Medicine.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
+            }
+            else if (item.get(i).getCategory().equals("Expired"))
+            {
+                Expired.add(item.get(i).getName()+" "+Integer.toString(item.get(i).getExpiryDate()));
             }
         }
 
@@ -47,6 +59,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Meat", Meat);
         expandableListDetail.put("Vegetable", Vegetable);
         expandableListDetail.put("Medicine",Medicine);
+        expandableListDetail.put("Expired",Expired);
         return expandableListDetail;
     }
 }

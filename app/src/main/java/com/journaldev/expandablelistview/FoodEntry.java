@@ -1,5 +1,8 @@
 package com.journaldev.expandablelistview;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by Kym on 4/27/2016.
  */
@@ -12,7 +15,15 @@ public class FoodEntry
 
     public FoodEntry(String name, String category, int expiryDate, int quantity) {
         Name = name;
-        Category = category;
+        if (isExpired(expiryDate ))
+        {
+            Category = "Expired";
+        }
+        else
+        {
+            Category = category;
+        }
+
         ExpiryDate = expiryDate;
         Quantity = quantity;
     }
@@ -49,6 +60,25 @@ public class FoodEntry
         Quantity = quantity;
     }
 
+    public boolean isExpired(int date)
+    {
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String formattedDate = df.format(c.getTime());
+        int datenow = Integer.parseInt(formattedDate);
+        boolean expired = date < datenow ;
+        return expired;
+    }
+   // @Override
+    public int compareTo(FoodEntry compareDat) {
+        int compareDate=((FoodEntry)compareDat).getExpiryDate();
+        /* For Ascending order*/
+        return this.ExpiryDate-compareDate;
+
+        /* For Descending order do like this */
+        //return compareage-this.studentage;
+    }
 
     //public void Categorize
 }
