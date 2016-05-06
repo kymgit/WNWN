@@ -51,10 +51,10 @@ public class ExpandableListDataPump {
             {
                 Expired.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
             }
-            else if (item.get(i).getCategory().equals("Sweets"))
+           /* else if (item.get(i).getCategory().equals("Sweets"))
             {
                 Sweets.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
-            }
+            }*/
         }
 
 
@@ -64,7 +64,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Meat", Meat);
         expandableListDetail.put("Vegetable", Vegetable);
         expandableListDetail.put("Medicine",Medicine);
-        expandableListDetail.put("Sweets",Sweets);
+        //expandableListDetail.put("Sweets",Sweets);
         expandableListDetail.put("Expired",Expired);
         return expandableListDetail;
     }
