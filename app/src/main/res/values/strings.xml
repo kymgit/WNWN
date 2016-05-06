@@ -3,4 +3,24 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_category">Item Category</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="set_date">set date</string>
+    <string name="quantity_of_items">Quantity of Items</string>
+    <string name="submit">submit</string>
+    <string name="clear">Clear</string>
+    <string name="AddItem">AddItem</string>
+    <string name="EditItem">EditItem</string>
+    <string name="yyyymmdd">YYYYMMDD</string>
+
+    <string-array name="item_category">
+        <item>Bread</item>
+        <item>Meat</item>
+        <item>Vegetable</item>
+        <item>Medicine</item>
+        <item>Sweets</item>
+        <item>Expired</item>
+    </string-array>
 </resources>

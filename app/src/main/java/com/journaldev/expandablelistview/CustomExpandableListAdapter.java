@@ -98,4 +98,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
+
+    //@Override
+    public void setNewItems(List<String> expandableListTitle,HashMap<String, List<String>> expandableListDetail) {
+
+        this.expandableListTitle = expandableListTitle;
+        this.expandableListDetail = expandableListDetail;
+        notifyDataSetChanged();
+    }
 }
