@@ -101,7 +101,7 @@ public class AddItem extends AppCompatActivity implements DatePickerDialog.OnDat
         String month2;
         month = month +1;
         //SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-        //String formattedDate = df.format(year+da);
+        //String formattedDate = df.parse(year+""+month+""+day);
         if (day <10)
         {
             date = "0"+day;

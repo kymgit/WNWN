@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -36,6 +37,7 @@ public class FoodEntry extends AppCompatActivity
         ExpiryDate = expiryDate;
         Quantity = quantity;
 
+        /*
         if (Category.equals("Bread"))
         {
             id ="0";
@@ -63,6 +65,7 @@ public class FoodEntry extends AppCompatActivity
         {
             id ="5";
         }
+        */
 
     }
 
@@ -115,12 +118,14 @@ public class FoodEntry extends AppCompatActivity
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
         String formattedDate = df.format(c.getTime());
         int datenow = Integer.parseInt(formattedDate);
         boolean expired = date < datenow ;
         return expired;
     }
-   // @Override
+
+    // unused compare
     public int compareTo(FoodEntry compareDat) {
         int compareDate= compareDat.getExpiryDate();
         /* For Ascending order*/
@@ -130,5 +135,5 @@ public class FoodEntry extends AppCompatActivity
         //return compareage-this.studentage;
     }
 
-    //public void Categorize
+
 }

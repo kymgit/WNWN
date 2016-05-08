@@ -142,12 +142,8 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
         Intent intent2 = new Intent (this, MainActivity.class);
-        EditText ExpDate = (EditText)findViewById(R.id.EditDate);
 
 
-        //Toast.makeText(getApplicationContext(),String.valueOf(ExpDate.getText()), Toast.LENGTH_SHORT).show();
-
-        //android.os.SystemClock.sleep(2000);
 
         EditText ItemName = (EditText)findViewById(R.id.EditItem);
         String contents = ItemName.getText().toString();
@@ -155,7 +151,7 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
         Spinner category = (Spinner)findViewById(R.id.spinner);
         String contents2 = category.getSelectedItem().toString();
 
-
+        EditText ExpDate = (EditText)findViewById(R.id.EditDate);
         String contents3 = String.valueOf(ExpDate.getText());
 
         EditText Quantity = (EditText)findViewById(R.id.EditQuantity);
@@ -179,9 +175,9 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
             intent2.putExtra("ExpDateO",Expiry);
             intent2.putExtra("Add", 2);
 
-            //startActivity(intent2);
+            //startActivity(intent2); old activity
             setResult(2,intent2);
-            finish();
+            finish(); //close activity
         }
 
     }

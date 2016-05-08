@@ -33,29 +33,29 @@ public class ExpandableListDataPump {
 
             if (item.get(i).getCategory().equals("Bread"))
             {
-                Bread.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
+                Bread.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
             }
 
             else if (item.get(i).getCategory().equals("Meat"))
             {
-                Meat.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
+                Meat.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
             }
             else if (item.get(i).getCategory().equals("Vegetable"))
             {
-                Vegetable.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
+                Vegetable.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
             }
             else if (item.get(i).getCategory().equals("Medicine"))
             {
-                Medicine.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
+                Medicine.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
             }
             else if (item.get(i).getCategory().equals("Expired"))
             {
-                Expired.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
+                Expired.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
             }
-           /* else if (item.get(i).getCategory().equals("Sweets"))
+            else if (item.get(i).getCategory().equals("Sweets"))
             {
-                Sweets.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate()));
-            }*/
+                Sweets.add(item.get(i).getName()+"\t"+Integer.toString(item.get(i).getExpiryDate())+"\t"+"\t"+item.get(i).getQuantity());
+            }
         }
 
 
