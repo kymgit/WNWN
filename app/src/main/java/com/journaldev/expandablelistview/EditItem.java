@@ -179,7 +179,9 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
             intent2.putExtra("ExpDateO",Expiry);
             intent2.putExtra("Add", 2);
 
-            startActivity(intent2);
+            //startActivity(intent2);
+            setResult(2,intent2);
+            finish();
         }
 
     }

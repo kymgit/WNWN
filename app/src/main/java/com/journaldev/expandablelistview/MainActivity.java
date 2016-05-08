@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     ArrayList<String> VirtualList = new ArrayList<String>();
     ArrayList<FoodEntry> FoodList = new ArrayList<FoodEntry>();
     HashMap<String, List<String>> expandableListDetail;
+    int gp;
+    int cp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,10 @@ public class MainActivity extends AppCompatActivity
         Intent intent = getIntent();
         Integer Add = intent.getIntExtra("Add", 0);
 
+
         if (Add == 1)
         {
+            /*
             String e = Integer.toString(Add);
             Toast.makeText(getApplicationContext(),e, Toast.LENGTH_SHORT).show();
             String ItemName = intent.getStringExtra("ItemName");
@@ -62,11 +66,13 @@ public class MainActivity extends AppCompatActivity
             Integer Quantity = intent.getIntExtra("Quantity", 0);
             VirtualList.add(ItemName + "\t" + Category + "\t" +  ExpDate + "\t" +  Quantity);
             writeSavedData();
+            */
         }
 
         else if (Add ==2) {
             String e = Integer.toString(Add);
             //Toast.makeText(getApplicationContext(),e, Toast.LENGTH_SHORT).show();
+            /*
             String ItemO = intent.getStringExtra("ItemNameO");
 
             String ExpDateO = intent.getStringExtra("ExpDateO");
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                     //break;
                 }
             }
-
+            */
         }
 
 
@@ -139,6 +145,7 @@ public class MainActivity extends AppCompatActivity
         }*/
 
         ExpandableListDataPump thing = new ExpandableListDataPump(FoodList);
+
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
@@ -187,7 +194,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
-        expandableListView.setAdapter(expandableListAdapter);
+        //expandableListView.setAdapter(expandableListAdapter);
         registerForContextMenu(expandableListView);
 
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -199,7 +206,8 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent (MainActivity.this, AddItem.class);
-                    startActivity(intent);
+                    //startActivity(intent);
+                    startActivityForResult(intent,1);
                 }
             });
 
@@ -243,6 +251,9 @@ public class MainActivity extends AppCompatActivity
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
 
+        gp = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+        cp = ExpandableListView.getPackedPositionChild(info.packedPosition);
+
         if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
             // do someting with child'
             //Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -273,7 +284,8 @@ public class MainActivity extends AppCompatActivity
                         editIntent.putExtra("ExpDate",lines[2]);
                         editIntent.putExtra("Quantity",lines[3]);
 
-                        startActivity(editIntent);
+                        //startActivity(editIntent);
+                        startActivityForResult(editIntent,2);
                         /*
                         Intent intent = getIntent();
                         Integer del = intent.getIntExtra("Submit", 0);
@@ -368,6 +380,7 @@ public class MainActivity extends AppCompatActivity
 
     public void parseSavedData() {
 
+        FoodList.clear();
         for (int i = 0; i < VirtualList.size(); i++) {
             String[] lines = VirtualList.get(i).split("\t");
             FoodEntry dummy = new FoodEntry(lines[0], lines[1], Integer.parseInt(lines[2]), Integer.parseInt(lines[3]));
@@ -409,14 +422,70 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request it is that we're responding to
+        if (requestCode == 1) {
+            //Toast.makeText(getApplicationContext(), "result accetped", Toast.LENGTH_SHORT).show();
 
-    /*
-    public abstract class CustomComparator implements Comparator<FoodEntry> {
-        @Override
-        public int compare(FoodEntry o1, FoodEntry o2) {
-            return o1.getExpiryDate().before(o2.getExpiryDate());
+            // Make sure the request was successful
+            if (resultCode == 1)
+            {
+                Toast.makeText(getApplicationContext(), "result accetped", Toast.LENGTH_SHORT).show();
+                String ItemName = data.getStringExtra("ItemName");
+                String Category = data.getStringExtra("Category");
+                Integer ExpDate = data.getIntExtra("ExpDate", 0);
+                Integer Quantity = data.getIntExtra("Quantity", 0);
+                
+                VirtualList.add(ItemName + "\t" + Category + "\t" + ExpDate + "\t" + Quantity);
+                writeSavedData();
+                readSavedData();
+                parseSavedData();
+
+                expandableListDetail = ExpandableListDataPump.getData();
+                expandableListAdapter.setNewItems(expandableListTitle, expandableListDetail);
+
+
+            }
+
+        }
+        else if (requestCode ==2)
+        {
+            if (resultCode ==2)
+            {
+                String ItemO = data.getStringExtra("ItemNameO");
+
+                String ExpDateO = data.getStringExtra("ExpDateO");
+                String ItemName = data.getStringExtra("ItemName");
+                String Category = data.getStringExtra("Category");
+
+                Integer ExpDate = data.getIntExtra("ExpDate2", 0);
+
+                Integer Quantity = data.getIntExtra("Quantity", 0);
+                for (int i = 0; i < VirtualList.size(); i++) {
+                    String[] lines = VirtualList.get(i).split("\t");
+                    if (ItemO.equals(lines[0])&& ExpDateO.equals(lines[2]))
+                    {
+                        Toast.makeText(getApplicationContext(),VirtualList.get(i), Toast.LENGTH_SHORT).show();
+                        VirtualList.remove(i);
+                        expandableListDetail.get(expandableListTitle.get(gp)).remove(cp);
+                        VirtualList.trimToSize();
+                        String line = ItemName + "\t" + Category + "\t" + ExpDate + "\t" + Quantity;
+                        VirtualList.add(line);
+                        Toast.makeText(getApplicationContext(), line, Toast.LENGTH_SHORT).show();
+                        writeSavedData();
+                        readSavedData();
+                        parseSavedData();
+                        expandableListDetail = ExpandableListDataPump.getData();
+                        expandableListAdapter.setNewItems(expandableListTitle, expandableListDetail);
+
+                    }
+                }
+            }
+
+
         }
     }
-    */
+
 
 }

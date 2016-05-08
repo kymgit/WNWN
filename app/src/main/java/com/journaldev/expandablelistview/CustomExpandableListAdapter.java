@@ -104,6 +104,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
-        notifyDataSetChanged();
+        notifyDataSetInvalidated();
+        //notifyDataSetChanged();
     }
 }

@@ -7,7 +7,8 @@ import java.util.List;
 public class ExpandableListDataPump {
 
 
-    private static ArrayList<FoodEntry> item ;
+    private static ArrayList<FoodEntry> item  ;
+
 
     public ExpandableListDataPump(ArrayList<FoodEntry> item) {
         ExpandableListDataPump.item = item;
