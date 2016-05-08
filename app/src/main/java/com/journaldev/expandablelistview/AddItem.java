@@ -147,11 +147,12 @@ public class AddItem extends AppCompatActivity implements DatePickerDialog.OnDat
 
         else
         {
+            int e = 1;
             intent2.putExtra("ItemName",contents);
             intent2.putExtra("Category",contents2);
             intent2.putExtra("ExpDate",Integer.parseInt(contents3));
             intent2.putExtra("Quantity",Integer.parseInt(contents4));
-
+            intent2.putExtra("Add",e);
             startActivity(intent2);
         }
 

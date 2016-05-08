@@ -48,15 +48,63 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        readSavedData();
         Intent intent = getIntent();
+        Integer Add = intent.getIntExtra("Add", 0);
 
-        String ItemName = intent.getStringExtra("ItemName");
-        String Category = intent.getStringExtra("Category");
-        Integer ExpDate = intent.getIntExtra("ExpDate", 0);
-        Integer Quantity = intent.getIntExtra("Quantity", 0);
+        if (Add == 1)
+        {
+            String e = Integer.toString(Add);
+            Toast.makeText(getApplicationContext(),e, Toast.LENGTH_SHORT).show();
+            String ItemName = intent.getStringExtra("ItemName");
+            String Category = intent.getStringExtra("Category");
+            Integer ExpDate = intent.getIntExtra("ExpDate", 0);
+            Integer Quantity = intent.getIntExtra("Quantity", 0);
+            VirtualList.add(ItemName + "\t" + Category + "\t" +  ExpDate + "\t" +  Quantity);
+            writeSavedData();
+        }
 
-        VirtualList.add(ItemName + "\t" + Category + "\t" +  ExpDate + "\t" +  Quantity);
+        else if (Add ==2) {
+            String e = Integer.toString(Add);
+            //Toast.makeText(getApplicationContext(),e, Toast.LENGTH_SHORT).show();
+            String ItemO = intent.getStringExtra("ItemNameO");
+
+            String ExpDateO = intent.getStringExtra("ExpDateO");
+            String ItemName = intent.getStringExtra("ItemName");
+            String Category = intent.getStringExtra("Category");
+            //Toast.makeText(getApplicationContext(),ItemName, Toast.LENGTH_SHORT).show();
+            Integer ExpDate = intent.getIntExtra("ExpDate2", 0);
+
+            Integer Quantity = intent.getIntExtra("Quantity", 0);
+            //String check = ItemO + "\t" + ExpDateO;
+            for (int i = 0; i < VirtualList.size(); i++) {
+                String[] lines = VirtualList.get(i).split("\t");
+                if (ItemO.equals(lines[0])&& ExpDateO.equals(lines[2])) {
+                    //Toast.makeText(getApplicationContext(),"puma", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),VirtualList.get(i), Toast.LENGTH_SHORT).show();
+                    VirtualList.remove(i);
+                    VirtualList.trimToSize();
+                    //Toast.makeText(getApplicationContext(),ItemName, Toast.LENGTH_SHORT).show();
+                    String line = ItemName + "\t" + Category + "\t" + ExpDate + "\t" + Quantity;
+                    VirtualList.add(line);
+                    //Toast.makeText(getApplicationContext(),VirtualList.get(VirtualList.size()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),line, Toast.LENGTH_SHORT).show();
+                    writeSavedData();
+                    //VirtualList.clear();
+                    //readSavedData();
+                    //parseSavedData();
+                    //break;
+                }
+            }
+
+        }
+
+
+
+
+
+
+
 
        /* try {
             FileOutputStream fileout = openFileOutput("masterlist.txt", MODE_PRIVATE);
@@ -101,9 +149,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onGroupExpand(int groupPosition) {
+                /*
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
+                        */
             }
         });
 
@@ -111,9 +161,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onGroupCollapse(int groupPosition) {
+                /*
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Collapsed.",
                         Toast.LENGTH_SHORT).show();
+                        */
 
             }
         });
@@ -122,6 +174,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+                /*
                 Toast.makeText(
                         getApplicationContext(),
                         expandableListTitle.get(groupPosition)
@@ -130,6 +183,7 @@ public class MainActivity extends AppCompatActivity
                                 expandableListTitle.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT
                 ).show();
+                */
                 return false;
             }
         });
@@ -191,14 +245,14 @@ public class MainActivity extends AppCompatActivity
 
         if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
             // do someting with child'
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
             //System.out.println(item.getTitle());
             if( item.getTitle().equals("Edit") ) {
                 // Edit
 
                 String check = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
 
-                Toast.makeText(getApplicationContext(), check, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), check, Toast.LENGTH_SHORT).show();
 
                 for (int i = 0; i < VirtualList.size(); i++) {
 
@@ -220,7 +274,7 @@ public class MainActivity extends AppCompatActivity
                         editIntent.putExtra("Quantity",lines[3]);
 
                         startActivity(editIntent);
-
+                        /*
                         Intent intent = getIntent();
                         Integer del = intent.getIntExtra("Submit", 0);
 
@@ -237,6 +291,7 @@ public class MainActivity extends AppCompatActivity
                             expandableListDetail.get(expandableListTitle.get(groupPosition)).remove(childPosition);
                             expandableListAdapter.setNewItems(expandableListTitle, expandableListDetail);
                         }
+                        */
 
                     }
 
@@ -244,14 +299,14 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 //System.out.println(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition));
-                Toast.makeText(getApplicationContext(),"edit", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"edit", Toast.LENGTH_SHORT).show();
             }
             else if( item.getTitle().equals("Delete")  ) {
                 //Delete
 
                 String check = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
 
-                Toast.makeText(getApplicationContext(), check, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), check, Toast.LENGTH_SHORT).show();
 
                 for (int i = 0; i < VirtualList.size(); i++) {
 
@@ -293,8 +348,9 @@ public class MainActivity extends AppCompatActivity
 
             String readString = buffreader.readLine();
 
-
+            VirtualList.clear();
             while (readString != null) {
+                //
                 datax.append(readString);
                 VirtualList.add(readString);
 
@@ -341,7 +397,7 @@ public class MainActivity extends AppCompatActivity
 
             for (int i = 0; i < VirtualList.size(); i++)
             {
-                outputWriter.write(VirtualList.get(i));
+                outputWriter.write(VirtualList.get(i)+"\n");
             }
 
             outputWriter.flush();

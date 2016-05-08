@@ -29,13 +29,15 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
-
+    String Item;
+    String Expiry;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_item);
+
 
         spinner = (Spinner) findViewById(R.id.spinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.item_category, android.R.layout.simple_spinner_item);
@@ -56,9 +58,9 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
         });
 
         Intent editIntent = getIntent();
-        String Item = editIntent.getStringExtra("ItemName");
+        Item = editIntent.getStringExtra("ItemName");
         String Category = editIntent.getStringExtra("Category");
-        String Expiry = editIntent.getStringExtra("ExpDate");
+        Expiry = editIntent.getStringExtra("ExpDate");
         String Qty = editIntent.getStringExtra("Quantity");
 
         EditText ItemName = (EditText) findViewById(R.id.EditItem);
@@ -137,11 +139,15 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void buttonSubmit (View view)
     {
-        int code = 1;
 
 
         Intent intent2 = new Intent (this, MainActivity.class);
+        EditText ExpDate = (EditText)findViewById(R.id.EditDate);
 
+
+        //Toast.makeText(getApplicationContext(),String.valueOf(ExpDate.getText()), Toast.LENGTH_SHORT).show();
+
+        //android.os.SystemClock.sleep(2000);
 
         EditText ItemName = (EditText)findViewById(R.id.EditItem);
         String contents = ItemName.getText().toString();
@@ -149,8 +155,8 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
         Spinner category = (Spinner)findViewById(R.id.spinner);
         String contents2 = category.getSelectedItem().toString();
 
-        EditText ExpDate = (EditText)findViewById(R.id.EditDate);
-        String contents3 = ExpDate.getText().toString();
+
+        String contents3 = String.valueOf(ExpDate.getText());
 
         EditText Quantity = (EditText)findViewById(R.id.EditQuantity);
         String contents4 = Quantity.getText().toString();
@@ -158,16 +164,20 @@ public class EditItem extends AppCompatActivity implements DatePickerDialog.OnDa
         if (contents.equals("") || /*contents2.equals("") ||*/ contents3.equals("") || contents4.equals(""))
         {
             Toast.makeText(getApplicationContext(), "Fill in all fields.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), contents3, Toast.LENGTH_SHORT).show();
+
         }
 
         else
         {
             intent2.putExtra("ItemName",contents);
-            intent2.putExtra("spinner",contents2);
-            intent2.putExtra("ExpDate",contents3);
-            intent2.putExtra("Quantity",contents4);
+            intent2.putExtra("Category",contents2);
+            intent2.putExtra("ExpDate2",Integer.parseInt(contents3));
+            intent2.putExtra("Quantity",Integer.parseInt(contents4));
 
-            intent2.putExtra("Submit", code);
+            intent2.putExtra("ItemNameO",Item);
+            intent2.putExtra("ExpDateO",Expiry);
+            intent2.putExtra("Add", 2);
 
             startActivity(intent2);
         }
