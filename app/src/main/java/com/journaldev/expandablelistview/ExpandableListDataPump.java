@@ -65,7 +65,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Meat", Meat);
         expandableListDetail.put("Vegetable", Vegetable);
         expandableListDetail.put("Medicine",Medicine);
-        //expandableListDetail.put("Sweets",Sweets);
+        expandableListDetail.put("Sweets",Sweets);
         expandableListDetail.put("Expired",Expired);
         return expandableListDetail;
     }
